@@ -19,7 +19,7 @@ namespace Travel.Web.Controllers
             _context = context;
         }
 
-        // GET: Travels
+        
         public async Task<IActionResult> Index()
         {
             return View(await _context.Travels.ToListAsync());
@@ -43,15 +43,13 @@ namespace Travel.Web.Controllers
             return View(travelEntity);
         }
 
-        // GET: Travels/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Travels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Reservation")] TravelEntity travelEntity)
