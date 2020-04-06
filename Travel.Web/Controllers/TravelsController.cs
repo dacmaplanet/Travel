@@ -43,6 +43,7 @@ namespace Travel.Web.Controllers
             return View(travelEntity);
         }
 
+        /*
         
         [HttpGet]
         public IActionResult Create()
@@ -148,5 +149,6 @@ namespace Travel.Web.Controllers
         {
             return _context.Travels.Any(e => e.Id == id);
         }
+        */
     }
 }
