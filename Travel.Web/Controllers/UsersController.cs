@@ -10,22 +10,22 @@ using Travel.Web.Data.Entities;
 
 namespace Travel.Web.Controllers
 {
-    public class TravelsController : Controller
+    public class UsersController : Controller
     {
         private readonly DataContext _context;
 
-        public TravelsController(DataContext context)
+        public UsersController(DataContext context)
         {
             _context = context;
         }
 
-        
+        // GET: Users
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Travels.ToListAsync());
+            return View(await _context.UserEntity.ToListAsync());
         }
 
-        // GET: Travels/Details/5
+        // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,38 +33,39 @@ namespace Travel.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.Travels
+            var userEntity = await _context.UserEntity
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (travelEntity == null)
+            if (userEntity == null)
             {
                 return NotFound();
             }
 
-            return View(travelEntity);
+            return View(userEntity);
         }
 
-        
-        [HttpGet]
+        // GET: Users/Create
         public IActionResult Create()
         {
             return View();
         }
-        
-        
+
+        // POST: Users/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Reservation")] TravelEntity travelEntity)
+        public async Task<IActionResult> Create([Bind("Id,Document,FirstName,LastName")] UserEntity userEntity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(travelEntity);
+                _context.Add(userEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(travelEntity);
+            return View(userEntity);
         }
 
-        // GET: Travels/Edit/5
+        // GET: Users/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +73,22 @@ namespace Travel.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.Travels.FindAsync(id);
-            if (travelEntity == null)
+            var userEntity = await _context.UserEntity.FindAsync(id);
+            if (userEntity == null)
             {
                 return NotFound();
             }
-            return View(travelEntity);
+            return View(userEntity);
         }
 
-        // POST: Travels/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Reservation")] TravelEntity travelEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Document,FirstName,LastName")] UserEntity userEntity)
         {
-            if (id != travelEntity.Id)
+            if (id != userEntity.Id)
             {
                 return NotFound();
             }
@@ -96,12 +97,12 @@ namespace Travel.Web.Controllers
             {
                 try
                 {
-                    _context.Update(travelEntity);
+                    _context.Update(userEntity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TravelEntityExists(travelEntity.Id))
+                    if (!UserEntityExists(userEntity.Id))
                     {
                         return NotFound();
                     }
@@ -112,10 +113,10 @@ namespace Travel.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(travelEntity);
+            return View(userEntity);
         }
 
-        // GET: Travels/Delete/5
+        // GET: Users/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +124,30 @@ namespace Travel.Web.Controllers
                 return NotFound();
             }
 
-            var travelEntity = await _context.Travels
+            var userEntity = await _context.UserEntity
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (travelEntity == null)
+            if (userEntity == null)
             {
                 return NotFound();
             }
 
-            return View(travelEntity);
+            return View(userEntity);
         }
 
-        // POST: Travels/Delete/5
+        // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var travelEntity = await _context.Travels.FindAsync(id);
-            _context.Travels.Remove(travelEntity);
+            var userEntity = await _context.UserEntity.FindAsync(id);
+            _context.UserEntity.Remove(userEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TravelEntityExists(int id)
+        private bool UserEntityExists(int id)
         {
-            return _context.Travels.Any(e => e.Id == id);
+            return _context.UserEntity.Any(e => e.Id == id);
         }
     }
 }

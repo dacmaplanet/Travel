@@ -16,6 +16,8 @@ namespace Travel.Web.Data
 
         public DbSet<TravelEntity> Travels { get; set; }
 
+        public DbSet<Travel.Web.Data.Entities.UserEntity> UserEntity { get; set; }
+
 
 
     }
