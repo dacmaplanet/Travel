@@ -15,6 +15,22 @@
             <th>
                 @Html.DisplayNameFor(model => model.Reservation)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+
+            <th>
+                # Travels
+            </th>
+            <th>
+                $ Total Expenses
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -24,9 +40,31 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Reservation)
             </td>
+            
+
             <td>
-                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Details</a>
+                <a asp-action="DetailUserTravels" asp-route-id="@item.Id" class="btn btn-info">Details</a>
             </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </tr>
 }
     </tbody>
