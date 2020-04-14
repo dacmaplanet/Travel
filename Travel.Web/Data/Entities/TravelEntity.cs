@@ -37,12 +37,13 @@ namespace Travel.Web.Data.Entities
         [Display(Name = "City Name")]
         public string City { get; set; }
 
-
-        public decimal Total => Expenses == null ? 0 : Expenses.Sum(e => e.Value);
+        
              
 
         /*ONE TRAVEL [TravelEntity] HAS MUCH EXPENSES*/
         public ICollection<ExpenseEntity> Expenses { get; set; }
+
+        public decimal Total => Expenses == null ? 0 : Expenses.Sum(e => e.Value);
 
         public UserEntity User { get; set; }
 
