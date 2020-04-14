@@ -1,51 +1,73 @@
-﻿@model IEnumerable<Travel.Web.Data.Entities.TravelEntity>
+﻿@model IEnumerable<Travel.Web.Data.Entities.UserEntity>
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Travels</h2>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EndDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-
-            <th>
-                # Travels
-            </th>
-            <th>
-                $ Total Expenses
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reservation)
-            </td>
-            
-
-            <td>
-                <a asp-action="DetailUserTravels" asp-route-id="@item.Id" class="btn btn-info">Details</a>
-            </td>
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.datatables.min.css" rel="stylesheet" />
 
 
 
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Travels per Employee</h3>
+            </div>
+
+            <div class="panel-body">
+                <table class="table table-hover table-responsive table-striped" id="MyTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Document)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FullName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserType)
+                            </th>
+                            <th>
+                                #Total Travels
+                            </th>
+                            <th>
+                                #Total Expenses
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Document)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FullName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UserType)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Travels.Count)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Total)
+                            </td>
+                            <td>
+                                <a asp-action="DetailsUserTravels" asp-route-id="@item.Id">Details</a> |
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

@@ -10,22 +10,29 @@ using Travel.Web.Data.Entities;
 
 namespace Travel.Web.Controllers
 {
-    public class UsersController : Controller
+    public class ExpensesController : Controller
     {
         private readonly DataContext _context;
 
-        public UsersController(DataContext context)
+
+
+        public ExpensesController(DataContext context)
         {
             _context = context;
         }
 
-        // GET: Users
+
+
+        // GET: Expenses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.UserEntity.ToListAsync());
+            return View(await _context.Expenses.ToListAsync());
         }
 
-        // GET: Users/Details/5
+
+
+
+        // GET: Expenses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +40,42 @@ namespace Travel.Web.Controllers
                 return NotFound();
             }
 
-            var userEntity = await _context.UserEntity
+            var expenseEntity = await _context.Expenses
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userEntity == null)
+            if (expenseEntity == null)
             {
                 return NotFound();
             }
 
-            return View(userEntity);
+            return View(expenseEntity);
         }
 
-        // GET: Users/Create
+
+        /*
+
+        // GET: Expenses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Users/Create
+        // POST: Expenses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Document,FirstName,LastName")] UserEntity userEntity)
+        public async Task<IActionResult> Create([Bind("Id,Value")] ExpenseEntity expenseEntity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(userEntity);
+                _context.Add(expenseEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(userEntity);
+            return View(expenseEntity);
         }
 
-        // GET: Users/Edit/5
+        // GET: Expenses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +83,22 @@ namespace Travel.Web.Controllers
                 return NotFound();
             }
 
-            var userEntity = await _context.UserEntity.FindAsync(id);
-            if (userEntity == null)
+            var expenseEntity = await _context.ExpenseEntity.FindAsync(id);
+            if (expenseEntity == null)
             {
                 return NotFound();
             }
-            return View(userEntity);
+            return View(expenseEntity);
         }
 
-        // POST: Users/Edit/5
+        // POST: Expenses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Document,FirstName,LastName")] UserEntity userEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Value")] ExpenseEntity expenseEntity)
         {
-            if (id != userEntity.Id)
+            if (id != expenseEntity.Id)
             {
                 return NotFound();
             }
@@ -97,12 +107,12 @@ namespace Travel.Web.Controllers
             {
                 try
                 {
-                    _context.Update(userEntity);
+                    _context.Update(expenseEntity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!UserEntityExists(userEntity.Id))
+                    if (!ExpenseEntityExists(expenseEntity.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +123,10 @@ namespace Travel.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(userEntity);
+            return View(expenseEntity);
         }
 
-        // GET: Users/Delete/5
+        // GET: Expenses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +134,35 @@ namespace Travel.Web.Controllers
                 return NotFound();
             }
 
-            var userEntity = await _context.UserEntity
+            var expenseEntity = await _context.ExpenseEntity
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (userEntity == null)
+            if (expenseEntity == null)
             {
                 return NotFound();
             }
 
-            return View(userEntity);
+            return View(expenseEntity);
         }
 
-        // POST: Users/Delete/5
+        // POST: Expenses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userEntity = await _context.UserEntity.FindAsync(id);
-            _context.UserEntity.Remove(userEntity);
+            var expenseEntity = await _context.ExpenseEntity.FindAsync(id);
+            _context.ExpenseEntity.Remove(expenseEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool UserEntityExists(int id)
+        private bool ExpenseEntityExists(int id)
         {
-            return _context.UserEntity.Any(e => e.Id == id);
+            return _context.ExpenseEntity.Any(e => e.Id == id);
         }
+
+    */
+
+
+
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Travel.Web.Data.Entities
 {
     public class TravelEntity
     {
+        /*ATRIBUTES PER TRAVELENTITY  */
         public int Id { get; set; }
 
-        [StringLength(12, MinimumLength = 4, ErrorMessage = "The {0} field must have {1} characters.")]
+        [MaxLength(80, ErrorMessage = "The {0} field must have {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
-        public string Reservation { get; set; }
+        public string Name { get; set; }
 
         [DataType(DataType.DateTime)]
         [Display(Name = "Start Date")]
@@ -29,9 +32,21 @@ namespace Travel.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = false)]
         public DateTime EndDateLocal => EndDate.ToLocalTime();
 
-        [StringLength(12, MinimumLength = 4, ErrorMessage = "The {0} field must have {1} characters.")]
+        [MaxLength(40, ErrorMessage = "The {0} field must have {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [Display(Name = "City Name")]
         public string City { get; set; }
+
+
+        public decimal Total => Expenses == null ? 0 : Expenses.Sum(e => e.Value);
+             
+
+        /*ONE TRAVEL [TravelEntity] HAS MUCH EXPENSES*/
+        public ICollection<ExpenseEntity> Expenses { get; set; }
+
+        public UserEntity User { get; set; }
+
+
+
     }
 }

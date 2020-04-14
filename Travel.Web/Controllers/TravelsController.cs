@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Travel.common.Enums;
 using Travel.Web.Data;
 using Travel.Web.Data.Entities;
 
@@ -14,33 +15,50 @@ namespace Travel.Web.Controllers
     {
         private readonly DataContext _context;
 
+
+
         public TravelsController(DataContext context)
         {
             _context = context;
         }
 
         
+
+
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Travels.ToListAsync());
+            return View(await _context.Users
+                .Where(u => u.UserType == UserType.Employee)
+                .Include(u => u.Travels)
+                .OrderBy(u => u.FirstName).ThenBy(u => u.LastName)
+                .ToListAsync());
         }
 
+
+
+
+
+
+
         // GET: Travels/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> DetailUserTravels(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var travelEntity = await _context.Travels
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (travelEntity == null)
+            UserEntity userEntity = await _context.Users
+                .Include(u => u.Travels)
+                .FirstOrDefaultAsync(u => u.Id == id);
+
+
+            if (userEntity == null)
             {
-                return NotFound();
+                return null;
             }
 
-            return View(travelEntity);
+            return View(userEntity);
         }
 
         /*

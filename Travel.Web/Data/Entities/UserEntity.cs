@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Threading.Tasks;
+using Travel.common.Enums;
 
 namespace Travel.Web.Data.Entities
 {
-    public class UserEntity
+    public class UserEntity : IdentityUser
     {
 
-        public int Id { get; set; }
 
-        /* ATRIBUTOS DE LA ENTIDAD USURIO */
+
+        /*ATRIBUTES PER USERENTITY  */
         [Display(Name = "Document")]
         [MaxLength(30, ErrorMessage = "The {0} field can not  have more than {1} characters.")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
@@ -28,13 +28,18 @@ namespace Travel.Web.Data.Entities
         public string LastName { get; set; }
 
 
+        [Display(Name = "User Type")]
+        public UserType UserType { get; set; }
 
-        [Display(Name = "Full Name")]
+
+
+        [Display(Name = "User")]
         public string FullName => $"{FirstName} {LastName}";
 
-        /*UN USUARIO [USERENTITY] TIENE MUCHOS VIAJES  */
+        /*ONE USER [USERENTITY] HAS MUCH TRAVELS  */
         public ICollection<TravelEntity> Travels { get; set; }
 
-        
+        /*ADD BY USER ALL TRAVELS*/
+        public decimal Total => Travels == null ? 0 : Travels.Sum(e => e.Total);
     }
 }
