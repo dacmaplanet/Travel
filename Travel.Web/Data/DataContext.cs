@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using Travel.Web.Data.Entities;
 
 namespace Travel.Web.Data
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<UserEntity>
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
@@ -18,8 +19,7 @@ namespace Travel.Web.Data
 
         public DbSet<ExpenseEntity> Expenses { get; set; }
 
-        public DbSet<UserEntity> Users { get; set; }
-
         
+
     }
 }

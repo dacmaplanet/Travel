@@ -5,8 +5,8 @@
 }
 
 
-<link href="https://cdn.datatables.net/1.10.19/css/jquery.datatables.min.css" rel="stylesheet" />
-
+<link rel="stylesheet"  href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
 
 
 
@@ -31,11 +31,12 @@
                                 @Html.DisplayNameFor(model => model.UserType)
                             </th>
                             <th>
-                                #Total Travels
+                                Travels
                             </th>
                             <th>
-                                #Total Expenses
+                                $ Total Expenses
                             </th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +59,7 @@
                                     @Html.DisplayFor(modelItem => item.Total)
                                 </td>
                                 <td>
-                                    <a asp-action="DetailsUserTravels" asp-route-id="@item.Id">Details</a> 
+                                    <a asp-action="DetailUserTravels" asp-route-id="@item.Id"> Details </a> 
                                 </td>
                             </tr>
                         }

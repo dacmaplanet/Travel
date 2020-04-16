@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using Travel.Web;
 using Travel.Web.Data;
 
-namespace Taxi.Web
+namespace Travel.Web
 {
     public class Program
     {
